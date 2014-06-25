@@ -1,0 +1,93 @@
+Getting Started
+开始啦~~~
+
+Before you continue, download the resources for this Swift tutorial and unpack the zip file. 
+继续之前，下载这个文件并且解压。
+
+You’ll have a folder containing all the images and sound effects you’ll need later on.
+你会得到一个文件，里面有各种图片和音频，你等等会用到它。
+
+Start up Xcode 6, go to File\New\Project…,
+开启Xcode 6，然后
+
+ choose the iOS\Application\Game template and click Next. Fill out the options as follows:
+ 
+Product Name: CookieCrunch
+
+Language: Swift
+
+Game Technology: SpriteKit
+
+Devices: iPhone
+
+Click Next, choose a folder for your project and click Create.
+
+This is a portrait-only game, 
+
+so open the Target Settings screen and in the General tab, 
+
+make sure only Portrait is checked in the Device Orientation section:
+
+Device orientation
+
+To start importing the graphics files, 
+
+go to the Resources folder you just downloaded and drag the Sprites.
+
+atlas folder into Xcode’s Project Navigator. Make sure Destination: 
+
+Copy items if needed is checked.
+
+You should now have a blue folder in your project:
+
+Sprites atlas in project navigator
+
+Xcode will automatically pack the images from this folder into a texture atlas when it builds the game. 
+
+Using a texture atlas as opposed to individual images will dramatically improve your game’s drawing performance.
+
+Note: 
+
+To learn more about texture atlases and performance, 
+
+check out Chapter 25 in iOS Games by Tutorials, 
+
+“Sprite Kit Performance: Texture Atlases”.
+
+There are a few more images to import, 
+
+but they don’t go into a texture atlas. 
+
+This is because they are either large full-screen background images
+ (which are more efficient to keep outside of the texture atlas) 
+ or images that you will later use from UIKit controls (UIKit controls cannot access images inside texture atlases).
+ 
+ 
+From the Resources/Images folder, drag each of the individual images into the asset catalog:
+
+Images in asset catalog
+
+Delete the Spaceship image from the asset catalog. 
+
+This is a sample image that came with the template but you won’t need any spaceships while crunching those tasty cookies! :]
+
+Outside of the asset catalog in the Project Navigator, 
+delete GameScene.sks. You won’t be using Xcode’s built-in level editor for this game.
+
+Great! It’s time to write some code. Replace the contents of GameViewController.swift with the following:
+
+[code area]
+
+This is mostly boilerplate code that creates the Sprite Kit scene and presents it in the SKView.
+For the final piece of setup, replace the contents of GameScene.swift with this:
+import SpriteKit
+
+[code area]
+ 
+This loads the background image from the asset catalog and places it in the scene.
+
+ Because the scene’s anchorPoint is (0.5, 0.5), 
+ 
+ the background image will always be centered on the screen on both 3.5-inch and 4-inch devices.
+ 
+Build and run to see what you’ve got so far. Excellent!

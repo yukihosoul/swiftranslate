@@ -1,0 +1,98 @@
+Can I Have Some Cookies?
+
+This game¡¯s playing field will consist of a grid, 
+
+9 columns by 9 rows. Each square of this grid can contain a cookie.
+
+Column 0, row 0 is in the bottom-left corner of the grid. 
+
+Since the point (0,0) is also at the bottom-left of the screen in Sprite Kit¡¯s coordinate system,
+
+ it makes sense to have everything else ¡°upside down¡±¡ªat least compared to the rest of UIKit. :]
+ 
+Note: Wondering why Sprite Kit¡¯s coordinate system is different than UIKit¡¯s? 
+
+This is because OpenGL ES¡¯s coordinate system has (0, 0) at the bottom-left, 
+
+and Sprite Kit is built on top of OpenGL ES.
+
+To learn more about OpenGL ES, we have a video tutorial series for that.
+
+To being implementing this, you need to create the class representing a cookie object. Go to File\New\File¡­, choose the iOS\Source\Swift File template and click Next. Name the file Cookie.swift and click Create.
+Replace the contents of Cookie.swift with the following:
+
+
+ [code area]
+  
+The column and row properties let Cookie keep track of its position in the 2-D grid.
+
+The sprite property is optional, hence the question mark after SKSpriteNode, 
+
+because the cookie object may not always have its sprite set.
+
+The cookieType property describes the¡ªwait for it¡ªtype of the cookie, 
+
+which takes a value from the CookieType enum. 
+
+The type is really just a number from 1 to 6, 
+
+but wrapping it in an enum allows you to work with easy-to-remember names instead of numbers.
+
+
+You will deliberately not use cookie type Unknown (value 0).
+
+ This value has a special meaning, as you¡¯ll learn toward the end of this part of the tutorial.
+ 
+Each cookie type number corresponds to a sprite image:
+
+[code area]
+
+The spriteName property returns the filename of the corresponding sprite image in the texture atlas. 
+
+In addition to the regular cookie sprite, 
+
+there is also a highlighted version that appears when the player taps on the cookie.
+
+The spriteName and highlightedSpriteName properties simply look up the name for the cookie sprite in an array of strings. 
+
+To find the index, you use toRaw() to convert the enum¡¯s current value to an integer. 
+
+Recall that the first useful cookie type, 
+
+Croissant, starts at 1 but arrays are indexed starting at 0, 
+
+so you need to subtract 1 to find the correct array index.
+
+Every time a new cookie gets added to the game, 
+
+it will get a random cookie type. 
+
+It makes sense to add that as a function on CookieType.
+
+ Add the following to the enum as well:
+
+[code area]
+
+This calls arc4random_uniform() to generate a random number between 0 and 5, 
+
+then adds 1 to make it a number between 1 and 6. 
+
+Because Swift is very strict, the result from arc4random_uniform() (an UInt32) must first be converted to an Int, 
+
+and then fromRaw() can convert this number into a proper CookieType value.
+
+Now, you may wonder why you¡¯re not making Cookie a subclass of SKSpriteNode. 
+
+After all, the cookie is something you want to display on the screen.
+
+If you¡¯re familiar with the model-view-controller (or MVC) pattern, 
+
+think of Cookie as a model object that simply describes the data for the cookie. 
+
+The view is a separate object, stored in the sprite property.
+
+This kind of separation between data models and views is something you¡¯ll use consistently throughout this tutorial. 
+
+The MVC pattern is more common in regular apps than in games but, as you¡¯ll see, 
+
+it can help keep the code clean and flexible.

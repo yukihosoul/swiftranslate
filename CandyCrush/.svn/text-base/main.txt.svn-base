@@ -1,0 +1,48 @@
+A little while back, I wrote an Objective-C tutorial about how to make a game like the Candy Crush Saga, 
+which is a very popular casual match-3 game.
+之前我有写过一个用Objective-C来完成“糖果碰撞”的游戏的教程，
+这是一个非常流行的衍生游戏。
+
+But I thought it would be great to make a Swift version as well, hence this post!
+但是我现在觉得如果做一个swift版本也许会更棒，因此就有了这篇文字。
+
+In this Swift tutorial, you’ll learn how to make a game like Candy Crush named Cookie Crunch Adventure.
+在这篇教程里，你会学习到如何制作一个像“糖果碰撞”的游戏。
+我们给他起个名字：饼干大冒险！
+
+Yum, that sounds even better than candy!
+恩，这听起来比糖果好多了！
+ 
+In the process of going through this tutorial, you’ll get some excellent practice with Swift techniques such
+ as enums,generics, subscripting, closures, and extensions. 
+阅读完教程之后，你会了解swift的知识比如枚举，泛型，下标，闭包和继承。
+ 
+ You’ll also learn a lot about game architecture and best practices.
+ 你也会熟悉很多关于游戏的结构并且得到更好的实践。
+ 
+This is Part One of a two-part series. In this first part, you’ll put the foundation in place: 
+the gameplay view, the sprites and some of the logic for detecting swipes and swapping cookies.
+第一部分有两块内容，在第一块中，你要学习建立地基：
+游戏的布景， 【？】和一些“滑动的引导”和“饼干的交换”。
+
+In the second part, you’ll complete the gameplay and add the final 
+polish to transform Cookie Crunch Adventure into a game of top-10 quality.
+在第二块中，你将会完成游戏并且【？】
+
+Note: This Swift tutorial assumes you have working knowledge of Sprite Kit and Swift. 
+说明：这个教程假设你已经有关于Sprite Kit 和 Swift.的相关编程基础。
+
+If you’re new to Sprite Kit, check out the beginner tutorials on the site or our book, iOS Games by Tutorials. 
+如果你对Sprite Kit很陌生，去网上或者书里查询一些初学者文档，或者iOS游戏教程。
+
+For an introduction to Swift, see our Swift tutorial.
+至于对swift的介绍可以看我们的swift教程。
+
+This tutorial requires Xcode 6 beta 2 or later. At the time of writing this tutorial, 
+这个教程需要 Xcode 6 beta 2 或者更高， 
+
+it is unclear to us if we are allowed to post screenshots of Xcode 6 since it is still in beta.
+
+ Therefore, we are suppressing Xcode 6 screenshots in this Swift tutorial until we are sure it is OK.
+ 
+  (Any Xcode screenshots shown are taken from the Objective-C version of this tutorial.)
