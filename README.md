@@ -4,7 +4,7 @@ swiftranslate
 Swift翻译小分队
 
 组成成员：
-二叔，男一号，挨踢男，吕健
+二叔，男一号，挨踢男，吕健,  木灰
 
 Swift翻译成果首发官网：
 http://www.swifteach.com
