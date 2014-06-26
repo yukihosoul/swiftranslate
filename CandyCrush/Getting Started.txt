@@ -8,9 +8,10 @@ You’ll have a folder containing all the images and sound effects you’ll need l
 你会得到一个文件，里面有各种图片和音频，你等等会用到它。
 
 Start up Xcode 6, go to File\New\Project…,
-开启Xcode 6，然后
+开启Xcode 6，然后点击File\New\Project…,
 
  choose the iOS\Application\Game template and click Next. Fill out the options as follows:
+ 选择iOS\Application\Game模版，然后选择下一步。像下边这样填写选项
  
 Product Name: CookieCrunch
 
@@ -21,73 +22,106 @@ Game Technology: SpriteKit
 Devices: iPhone
 
 Click Next, choose a folder for your project and click Create.
+点选Next,选择档案储存的路径，最后点击Create.
 
 This is a portrait-only game, 
+这个游戏只支持竖屏，
 
 so open the Target Settings screen and in the General tab, 
+因此打开Target Settings界面，选择General选项，
 
 make sure only Portrait is checked in the Device Orientation section:
+确保在设备朝向中只有竖屏幕是被选中的
 
 Device orientation
+设备朝向
 
 To start importing the graphics files, 
+开始倒入图片
 
 go to the Resources folder you just downloaded and drag the Sprites.
+打开你刚刚下载的Resources文件夹并且拖拽Sprites.atlas文件夹到
 
 atlas folder into Xcode’s Project Navigator. Make sure Destination: 
+Xcode的导航栏中。确保选项Copy items if needed 被选中，
 
 Copy items if needed is checked.
+确保选项Copy items if needed 被选中，
 
 You should now have a blue folder in your project:
+现在你会看到一个蓝色的文件夹在你的工程中
 
 Sprites atlas in project navigator
+Sprites atlas文件夹在你的工程中
 
 Xcode will automatically pack the images from this folder into a texture atlas when it builds the game. 
+在游戏编译的时候，Xcode会自动把这个文件夹中的图片打包到一个纹理图集合当中。
 
 Using a texture atlas as opposed to individual images will dramatically improve your game’s drawing performance.
+使用纹理图集合相比较单独的图像而言，会大大提高游戏的绘制效果。
 
-Note: 
+Note: 注释
 
 To learn more about texture atlases and performance, 
+想要了解更多关于纹理图集合原理以及表现效果的话，
 
-check out Chapter 25 in iOS Games by Tutorials, 
+check out Chapter 25 in iOS Games by Tutorials,
+看看iOS游戏教程的第25章
 
 “Sprite Kit Performance: Texture Atlases”.
+“Sprite Kit 表现: 纹理图集”.
 
 There are a few more images to import, 
+有多胀图片需要导入
 
 but they don’t go into a texture atlas. 
+但是他们并没有进入纹理图集
 
 This is because they are either large full-screen background images
+这是因为他们要么是大的充满全屏的背景图片
  (which are more efficient to keep outside of the texture atlas) 
+ （这样的图片放到纹理图集外边会更加高效）
  or images that you will later use from UIKit controls (UIKit controls cannot access images inside texture atlases).
+ 而且他们要么是你马上会用到的用于定制UI控件的图片（UI控件不能从纹理图集中取得图片）
  
  
 From the Resources/Images folder, drag each of the individual images into the asset catalog:
+从Resources/Images文件夹下，把图片逐张拖拽到资源目录
 
 Images in asset catalog
+图片目录
 
 Delete the Spaceship image from the asset catalog. 
+从图片目录中删除宇宙飞船图片
 
 This is a sample image that came with the template but you won’t need any spaceships while crunching those tasty cookies! :]
+这是一个来自模版样板图片，在制作美味的饼干的时候我们并不需要他。
 
 Outside of the asset catalog in the Project Navigator, 
+在导航栏的资源目录外边
 delete GameScene.sks. You won’t be using Xcode’s built-in level editor for this game.
-
+删除掉GameScene.sks文件，因为开发这款游戏的时候你不会用到Xcode的内置编辑器。
 Great! It’s time to write some code. Replace the contents of GameViewController.swift with the following:
-
+棒极了！是时候开始写代码了。用下边的代码替换掉GameViewController.swift中的内容。
 [code area]
 
 This is mostly boilerplate code that creates the Sprite Kit scene and presents it in the SKView.
+这些都是用来创建Sprite Kit场景并把它呈现在SKView上得样板代码。
+
+
 For the final piece of setup, replace the contents of GameScene.swift with this:
-import SpriteKit
+在运行代码以前，还需要用瞎编的代码对GameScene.swift中的代码做相应替换
 
 [code area]
  
 This loads the background image from the asset catalog and places it in the scene.
+这段代码主要用于从资源目录中加载背景图片，并且把它呈现到场景当中。
 
- Because the scene’s anchorPoint is (0.5, 0.5), 
+ Because the scene’s anchorPoint is (0.5, 0.5),
+ 由于场景的锚点是（0.5,0.5） 
  
  the background image will always be centered on the screen on both 3.5-inch and 4-inch devices.
+ 所以不论是在3.5英寸还是4英寸的设备中背景图片都会居中显示。
  
 Build and run to see what you’ve got so far. Excellent!
+编译运行，看看此时app呈现出来的效果。太棒了。 
