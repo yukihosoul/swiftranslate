@@ -1,98 +1,150 @@
 Can I Have Some Cookies?
+我能拥有一些饼干吗？
 
 This game’s playing field will consist of a grid, 
+这个游戏的布景是由格子组成的，
 
 9 columns by 9 rows. Each square of this grid can contain a cookie.
+9行9列，每个格子都可以放一块饼干。
 
 Column 0, row 0 is in the bottom-left corner of the grid. 
+0行0列对应的就是最左下角那一格。
 
 Since the point (0,0) is also at the bottom-left of the screen in Sprite Kit’s coordinate system,
+同时在Sprite Kit的坐标系里面，坐标（0,0）也代表着屏幕的左下角。
 
  it makes sense to have everything else “upside down”—at least compared to the rest of UIKit. :]
+ 这使得一切都变得有意义，尤其是“上，下”的操作。至少跟UIKit的那一套坐标系相比较。
  
 Note: Wondering why Sprite Kit’s coordinate system is different than UIKit’s? 
+注意：想知道为什么Sprite Kit的坐标系跟UIKit有这么多区别？
 
 This is because OpenGL ES’s coordinate system has (0, 0) at the bottom-left, 
+这是因为OpenGL ES的坐标系的（0,0）对应的是左下角，
 
 and Sprite Kit is built on top of OpenGL ES.
+而Sprite Kit是建立在OpenGL ES的框架上完成的。
 
 To learn more about OpenGL ES, we have a video tutorial series for that.
+如果想学习更多有关OpenGL ES的知识，我们需要一些学习相关的视频教程。
 
 To being implementing this, you need to create the class representing a cookie object. Go to File\New\File…, choose the iOS\Source\Swift File template and click Next. Name the file Cookie.swift and click Create.
 Replace the contents of Cookie.swift with the following:
-
+并且继承这个，你需要创建一个类来代表“饼干”这个对象。
+创建新项目，选择Swift的语言， 并起名叫“Cookie.swift”，然后点击创建按钮。
 
  [code area]
   
 The column and row properties let Cookie keep track of its position in the 2-D grid.
+行和列属性可以让饼干在2D的格子里面记录路径。
 
 The sprite property is optional, hence the question mark after SKSpriteNode, 
+sprite属性是可选的，所以我们给他定义成SKSpriteNode并且在后面打了一个问号
 
 because the cookie object may not always have its sprite set.
+因为饼干对象不一定总是拥有sprite属性。
 
 The cookieType property describes the—wait for it—type of the cookie, 
+cookieType属性描述的是：饼干的类型
 
 which takes a value from the CookieType enum. 
+而类型是从CookieType枚举值中选取的。
 
 The type is really just a number from 1 to 6, 
+我们可以用数字1-6来代表这些类型。
 
 but wrapping it in an enum allows you to work with easy-to-remember names instead of numbers.
-
+但是我们更建议用一个好记的名字来给这些枚举类命名（更加好理解。
 
 You will deliberately not use cookie type Unknown (value 0).
+你可能会直接用到一个未知类型的饼干（值是0
 
  This value has a special meaning, as you’ll learn toward the end of this part of the tutorial.
+ 这个值有特殊的意义，你会在教程的这个章节的结尾处学习到。
  
 Each cookie type number corresponds to a sprite image:
+每个饼干类型都对应一个图片：
+
+[code area]
+
+In Swift, an enum isn’t just useful for associating symbolic names with numbers; 
+在swift里面，一个枚举值并不仅仅用于数字来关联属性。
+
+you can also add functions and computed properties to an enum. Add the following code inside the enum CookieType:
+你同意可以添加方法和对枚举值进行属性计算。把下列代码放入每个饼干枚举类里面：
 
 [code area]
 
 The spriteName property returns the filename of the corresponding sprite image in the texture atlas. 
+spriteName属性将返回每个图片对应的名字
 
 In addition to the regular cookie sprite, 
+另外，对于每个普通的饼干类型，
 
 there is also a highlighted version that appears when the player taps on the cookie.
+都应该有一个对应的高光版本的图片，用于玩家在点击饼干的时候。
 
 The spriteName and highlightedSpriteName properties simply look up the name for the cookie sprite in an array of strings. 
+spriteName和highlightedSpriteName属性简单的用于在一组数组中查找对应的名字
 
 To find the index, you use toRaw() to convert the enum’s current value to an integer. 
+查询到索引号（index），你就可以用toRaw()方法来将一个枚举类型转换成一个整形数字。
 
 Recall that the first useful cookie type, 
+来，我们回忆一下饼干的第一种有效类型，
 
 Croissant, starts at 1 but arrays are indexed starting at 0, 
+牛角包（Croissant）! 他是第一个值但是它的索引（index）是从0开始的。
 
 so you need to subtract 1 to find the correct array index.
+所以你需要减去1去寻找到正确的数组坐标。（应该很好理解，数组坐标都是从0开始的。所以需要减一）
 
 Every time a new cookie gets added to the game, 
+每次一个新的饼干添加到游戏中，
 
-it will get a random cookie type. 
+it will get a random cookie type.
+都会去随机产生一个饼干类型。 
 
 It makes sense to add that as a function on CookieType.
+这使得我们的添加一个饼干类型变得有意义。
 
  Add the following to the enum as well:
+ 我们同样添加下列的枚举类型：
 
 [code area]
 
 This calls arc4random_uniform() to generate a random number between 0 and 5, 
+arc4random_uniform()方法用于随机产生一个介于0-5之间的数字，
 
 then adds 1 to make it a number between 1 and 6. 
+然后增加1就会在1-6之间。
 
 Because Swift is very strict, the result from arc4random_uniform() (an UInt32) must first be converted to an Int, 
+因为Swift的语法非常严谨，arc4random_uniform()产生的结果必须转型成整形 (UInt32)
 
 and then fromRaw() can convert this number into a proper CookieType value.
+然后fromRaw()方法可以将一个数字转换成一个对应的饼干类型。
 
 Now, you may wonder why you’re not making Cookie a subclass of SKSpriteNode. 
+现在，你也许会想知道为什么你不是用SKSpriteNode的子类来制作饼干了。
 
 After all, the cookie is something you want to display on the screen.
+别忘了，饼干是你想要在屏幕上展示的一个元素。
 
 If you’re familiar with the model-view-controller (or MVC) pattern, 
+如果你熟悉MVC模式（模型-试图-控制器），
 
 think of Cookie as a model object that simply describes the data for the cookie. 
+应该能考虑到饼干是一个模型对象来准确的描述饼干的数据。
 
 The view is a separate object, stored in the sprite property.
+试图是一个单独的对象，存储sprite的属性值。
 
 This kind of separation between data models and views is something you’ll use consistently throughout this tutorial. 
+这种将数据模型和视图分开的搭建方法就是在整个教程中你所需要学习的。
 
 The MVC pattern is more common in regular apps than in games but, as you’ll see, 
+MVC模式会在应用在更多的App中，不仅仅是在这个游戏里。你以后就会知道了。
 
 it can help keep the code clean and flexible.
+这能帮助你保持代码的洁净和可重构度。
