@@ -124,4 +124,4 @@ This loads the background image from the asset catalog and places it in the scen
  所以不论是在3.5英寸还是4英寸的设备中背景图片都会居中显示。
  
 Build and run to see what you’ve got so far. Excellent!
-编译运行，看看此时app呈现出来的效果。太棒了。
+编译运行，看看此时app呈现出来的效果。太棒了。 
