@@ -1,0 +1,52 @@
+Printing Cookies
+打印cookie
+
+
+If you were to use println() to print out a Cookie at the moment, it wouldn’t look very nice.
+如果你这个时候用 println()来打印一个cookie的话，它看起来不会很美观。
+
+
+What you’d like is to customize the output of when you print a cookie. 
+你想要做的是在打cookie的时候自定义输出。
+
+You can do this by making the Cookie conform to the Printable protocol.
+你可以通过让cookie遵循可打印协议来完成这项任务。
+
+To do this, modify the declaration of Cookie as follows:
+为此，我们要将cookie的声明改成下面的样子
+
+
+class Cookie: Printable {
+
+
+Then add a computed property named description:
+之后我们加入一个可计算特性，命名为description（描述）：
+
+
+var description: String {
+  return "type:\(cookieType) square:(\(column),\(row))"
+}
+
+
+Now println() will print out something helpful: the type of cookie and its column and row in the level grid. 
+现在println()将会打印出有用的东西：cookie的类型以及它在坐标方格中的行数列数
+
+You’ll use this in practice later.
+你会在接下来的练习中用到它
+
+
+Let’s also make the CookieType enum printable. 
+我们现在要让CookieType enum也可打印
+
+Add the Printable protocol to the enum definition and have the description property return the sprite name
+, which is a pretty good description of the cookie type:
+将可打印协议添加到enum的定义上并让定义返回一个sprite name
+这会让cookie类型的定义很不错
+
+
+enum CookieType: Int, Printable {
+  ...
+  var description: String {
+    return spriteName
+  }
+}

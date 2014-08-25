@@ -1,0 +1,80 @@
+Keeping the Cookies: the 2-D Grid
+保存cookie：二维网格
+
+
+Now you need something to hold that 9×9 grid of cookies. The Objective-C version of this tutorial did this,
+现在你需要些什么来维持那个9*9的cookie网格.在本教程的Objecive-C 版本中是这样做的，
+
+Cookie *_cookies[9][9];
+
+to create a two-dimensional array of 81 elements. 
+用它创建了一个二维数组，其中有81个元素。
+
+Then you could simply do myCookie = _cookies[3][6]; to find the cookie at column 3, row 6.
+之后你可以很简单地用   myCookie = _cookies[3][6]; 来找到第三行第六列的cookie
+
+Swift arrays, however, work quite differently from plain old C arrays and the above is not possible. 
+但是Swift数组的工作方式和传统的C语言数组很不一样，上面的方法行不通。
+
+Fortunately, you can write your own class that acts like a 2-D array and that is just as convenient to use.
+幸运的是，你可以写一个自己的类，让它有和二维数组一样的功能并且还很方便使用。
+
+Go to File\New\File…, choose the iOS\Source\Swift File template and click Next. 
+前往File\New\File…，选择iOS\Source\Swift File 模板然后点击Next(下一步)。
+
+Name the file Array2D.swift and click Create.
+命名这个文件为Array2D.swift之后点击Create（创建）。
+
+Replace the contents of Array2D.swift with the following:
+将Array2D.swift里面的内容替换成以下代码：
+
+class Array2D<T> {
+  let columns: Int
+  let rows: Int
+  let array: Array<T?>  // private
+ 
+  init(columns: Int, rows: Int) {
+    self.columns = columns
+    self.rows = rows
+    array = Array<T?>(count: rows*columns, repeatedValue: nil)
+  }
+ 
+  subscript(column: Int, row: Int) -> T? {
+    get {
+      return array[row*columns + column]
+    }
+    set {
+      array[row*columns + column] = newValue
+    }
+  }
+}
+
+The notation Array2D<T> means that this class is a generic; 
+Array2D<T>标志说明这个类是泛的
+
+it can hold elements of any type T. 
+它能hold（？）任何T型元素
+
+You’ll use Array2D to store Cookie objects,
+你回用到Array2D来保存Cookie对象
+
+but later on in the tutorial you’ll use another Array2D to store a different type of object, Tile.
+但是等等在教程中你回用到另一个Array2D来保存另一个类型的对象，Tile。
+
+Array2D‘s initializer creates a regular Swift Array with a count of rows x columns and sets all these elements to nil.
+Array2D的初始化工具创造了一个正常的有着可数行列数的Swift数组并将所有元素设为nil（空）。
+
+When you want a value to be nil in Swift, 
+当你需要将一个数值在Swift中设为nil时，
+
+it needs to be declared optional, which is why the type of the array property is Array<T?> and not just Array<T>.
+你需要将它定义为可行的，这就是为什么我们的数组性质是 Array<T?>而不是 Array<T>。
+
+What makes this class easy to use is that is supports subscripting. 
+因为这个类支持下标，所以它的使用很简单。
+
+If you know the column and row numbers of a specific item, 
+当你知道一个具体的物品的行列的时候。
+
+you can index the array as follows: myCookie = cookies[column, row]. Sweet!
+你只需要像这样使用它 myCookie = cookies[column, row]  .   爽！
