@@ -14,7 +14,11 @@ http://www.swifteach.com
 《Candy Crush Game》——part 1 翻译中...
 
 《Candy Crush Game》——part 2 未翻译...
+<<<<<<< HEAD
+///add this line for a test
+=======
 
 11
 
+>>>>>>> 66e4ccbe57bbb017bb482867bd5d47647e04b797
 
